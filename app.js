@@ -2,10 +2,10 @@ const canvas = document.querySelector('.field');
 const ctx = canvas.getContext('2d');
 let snakeX = 50;
 let snakeY = 50;
-let snakeRight = 10;
-let snakeLeft = -10;
-let snakeUp = -10;
-let snakeDown = 10;
+let snakeRight = 5;
+let snakeLeft = -5;
+let snakeUp = -5;
+let snakeDown = 5;
 let appleX = 0;
 let appleY = 0;
 let score = 0;
@@ -24,13 +24,10 @@ document.addEventListener('keydown', function (e) {
 })
 
 function input(arrow) {
-    // setInterval(function() {
-    //     snakeMove(arrow);
-    //     drawGame();
-    // }, 133.333);
-    snakeMove(arrow);
+    setInterval(function() {
+        snakeMove(arrow);
         drawGame();
-   
+    }, 133.333);
 }
 
 function snakeMove(arrow) {
@@ -38,13 +35,13 @@ function snakeMove(arrow) {
     snakeY = snakeY;
     switch(arrow) {
     case "left":
-        return snakeX = snakeX + snakeLeft;
+        return snakeX = snakeLeft;
     case "right":
-        return snakeX = snakeX + snakeRight;
+        return snakeX = snakeRight;
     case "up":
-        return snakeY = snakeY + snakeUp;    
+        return snakeY = snakeUp;    
     case "down":
-        return snakeY = snakeY + snakeDown;    
+        return snakeY = snakeDown;    
     }
 }
 
