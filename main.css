@@ -62,9 +62,9 @@ body {
   margin-top: 0.4em;
 }
 .field {
-  margin-inline: auto;
-  margin-block: auto;
-  width: 570px;
-  height: 640px;
-  background-color: #f7d13a;
+  margin-inline: 2.75%;
+  margin-block: 2.5%;
+  width: 94%;
+  height: 100%;
+  border: 3px solid rgba(0, 0, 0, 0.219);
 }

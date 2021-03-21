@@ -1,37 +1,76 @@
-// snakey snake time
-// Deliverables;
+const canvas = document.querySelector('.field');
+const ctx = canvas.getContext('2d');
+let snakeX = 50;
+let snakeY = 50;
+let snakeRight = 10;
+let snakeLeft = -10;
+let snakeUp = -10;
+let snakeDown = 10;
+let appleX = 0;
+let appleY = 0;
+let score = 0;
 
-// Snake game ends when:
-// Snake touches itself
-// Snake touches the outside border
-// When the game ends, the gameplay should stop and the user should be notified that the game is over
+document.addEventListener('keydown', function (e) {
+    switch (e.key) {
+        case "ArrowLeft":
+            return input("left");
+        case "ArrowUp":
+            return input("up");
+        case "ArrowDown":
+            return input("down");
+        case "ArrowRight":
+            return input("right");
+    }
+})
 
-// The snake should grow one length whenever it eats the apple
-// The apple should randomly place itself on the board after snake consumes the apple
-
-// The snake should be controlled by the arrow keys on the keyboard
-// The game will  show a score of how many apples have been eaten
-function init() {
-    console.log("snake running");
-    const canvas = document.querySelector('.field');
-    const canvasContext = canvas.getContext('2d');
-    canvasContext.fillStyle = 'green';
-    canvasContext.fillRect(60,25,5,15);
-    canvasContext.fillStyle = 'red';
-    canvasContext.fillRect(100,55,5,5);
+function input(arrow) {
+    // setInterval(function() {
+    //     snakeMove(arrow);
+    //     drawGame();
+    // }, 133.333);
+    snakeMove(arrow);
+        drawGame();
+   
 }
-// document.addEventListener(keydown, moveSnake(e));
 
-// function moveSnake() {
-//     throw "snakey snake"
-// }
+function snakeMove(arrow) {
+    snakeX = snakeX;
+    snakeY = snakeY;
+    switch(arrow) {
+    case "left":
+        return snakeX = snakeX + snakeLeft;
+    case "right":
+        return snakeX = snakeX + snakeRight;
+    case "up":
+        return snakeY = snakeY + snakeUp;    
+    case "down":
+        return snakeY = snakeY + snakeDown;    
+    }
+}
 
-// function respawnApple() {
+function randomApple() {
+    appleX = Math.floor(Math.random() * canvas.width);
+    appleY = Math.floor(Math.random() * canvas.height);
+}
 
-// }
+function drawGame() {
+    ctx.fillStyle = '#f7d13a';
+    ctx.fillRect(0,0,canvas.clientWidth,canvas.height); 
+    ctx.fillStyle = 'green';
+    ctx.fillRect(snakeX , snakeY,5,15); 
+    ctx.fillStyle = 'red';
+    ctx.fillRect(appleX,appleY,5,5);
+}
 
-// function killSnake() {
+function eatApple() {
+    score ++;
+    document.querySelector('.scoreDisplay').textContent = addLeadingZeros(score);
+    randomApple();
+}
 
-// }
+const addLeadingZeros = (number) => {
+    return number < 10 ? '00' + number : (number < 100 ? '0' + number : number);
+};
 
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', randomApple);
+document.addEventListener('DOMContentLoaded', drawGame);
