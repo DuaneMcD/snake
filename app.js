@@ -11,4 +11,27 @@
 
 // The snake should be controlled by the arrow keys on the keyboard
 // The game will  show a score of how many apples have been eaten
+function init() {
+    console.log("snake running");
+    const canvas = document.querySelector('.field');
+    const canvasContext = canvas.getContext('2d');
+    canvasContext.fillStyle = 'green';
+    canvasContext.fillRect(60,25,5,15);
+    canvasContext.fillStyle = 'red';
+    canvasContext.fillRect(100,55,5,5);
+}
+// document.addEventListener(keydown, moveSnake(e));
 
+// function moveSnake() {
+//     throw "snakey snake"
+// }
+
+// function respawnApple() {
+
+// }
+
+// function killSnake() {
+
+// }
+
+document.addEventListener('DOMContentLoaded', init);

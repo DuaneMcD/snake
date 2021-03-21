@@ -62,17 +62,9 @@ body {
   margin-top: 0.4em;
 }
 .field {
-  /* align-self: center; */
   margin-inline: auto;
   margin-block: auto;
   width: 570px;
   height: 640px;
   background-color: #f7d13a;
-}
-.snake {
-  color: black;
-}
-.apple {
-  width: 32px;
-  height: 32px;
 }
