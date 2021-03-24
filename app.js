@@ -1,16 +1,18 @@
 const canvas = document.querySelector('.field');
 const ctx = canvas.getContext('2d');
-let snakeX = 50;
-let snakeY = 50;
-let snakeRight = 5;
-let snakeLeft = -5;
-let snakeUp = -5;
-let snakeDown = 5;
-let appleX = 0;
-let appleY = 0;
+let interval = "";
+let snake= {
+    X: 50,
+    Y: 50,
+}
+let apple = {
+    X: 0,
+    Y: 0,
+}
 let score = 0;
 
 document.addEventListener('keydown', function (e) {
+    if (interval !== undefined){clearInterval(interval)};
     switch (e.key) {
         case "ArrowLeft":
             return input("left");
@@ -24,25 +26,35 @@ document.addEventListener('keydown', function (e) {
 })
 
 function input(arrow) {
-    setInterval(function() {
-        snakeMove(arrow);
+    interval = setInterval(function() {
+        snakeDirection(arrow);
         drawGame();
-    }, 133.333);
+    }, 66.666);
+    // snakeDirection(arrow);
+    // drawGame();
 }
 
-function snakeMove(arrow) {
-    snakeX = snakeX;
-    snakeY = snakeY;
+function snakeDirection(arrow) {
     switch(arrow) {
     case "left":
-        return snakeX = snakeLeft;
+        console.log(snake.X, snake.Y);
+        return snake.X -= 2;
     case "right":
-        return snakeX = snakeRight;
+        console.log(snake.X, snake.Y);
+        return snake.X += 2;
     case "up":
-        return snakeY = snakeUp;    
+        console.log(snake.X, snake.Y);
+        return snake.Y -= 2;    
     case "down":
-        return snakeY = snakeDown;    
+        console.log(snake.X, snake.Y);
+        return snake.Y += 2;    
     }
+}
+
+function snakeMove() {
+    setInterval(function() {
+        snakeGothatWay
+    }, 250);
 }
 
 function randomApple() {
@@ -54,7 +66,7 @@ function drawGame() {
     ctx.fillStyle = '#f7d13a';
     ctx.fillRect(0,0,canvas.clientWidth,canvas.height); 
     ctx.fillStyle = 'green';
-    ctx.fillRect(snakeX , snakeY,5,15); 
+    ctx.fillRect(snake.X,snake.Y,5,15); 
     ctx.fillStyle = 'red';
     ctx.fillRect(appleX,appleY,5,5);
 }
