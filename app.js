@@ -27,11 +27,30 @@ document.addEventListener('keydown', function (e) {
 
 function input(arrow) {
     interval = setInterval(function() {
-        snakeDirection(arrow);
+        moveSnake(arrow);
         drawGame();
     }, 66.666);
-    // snakeDirection(arrow);
-    // drawGame();
+}
+
+function moveSnake(arrow) {
+    snakeDirection(arrow);
+    killSnake();
+    eatApple();
+}
+
+function killSnake() {
+    if (snake.X < 0 | snake.X > 295) {
+        deadSnake();
+    }else if (snake.Y < 0 | snake.Y > 137){
+        deadSnake();
+    }
+}
+
+function deadSnake() {
+    console.log("dead");
+    clearInterval(interval);
+    snake.X = 50;
+    snake.Y = 50;
 }
 
 function snakeDirection(arrow) {
@@ -51,15 +70,9 @@ function snakeDirection(arrow) {
     }
 }
 
-function snakeMove() {
-    setInterval(function() {
-        snakeGothatWay
-    }, 250);
-}
-
 function randomApple() {
-    appleX = Math.floor(Math.random() * canvas.width);
-    appleY = Math.floor(Math.random() * canvas.height);
+    apple.X = Math.floor(Math.random() * canvas.width);
+    apple.Y = Math.floor(Math.random() * canvas.height);
 }
 
 function drawGame() {
@@ -68,13 +81,16 @@ function drawGame() {
     ctx.fillStyle = 'green';
     ctx.fillRect(snake.X,snake.Y,5,15); 
     ctx.fillStyle = 'red';
-    ctx.fillRect(appleX,appleY,5,5);
+    ctx.fillRect(apple.X,apple.Y,5,5);
 }
 
 function eatApple() {
+    if ((snake.X >= apple || snake.X <= apple + apple.width) && (snake.Y >= apple || snake.Y <= apple + apple.height)) {
     score ++;
     document.querySelector('.scoreDisplay').textContent = addLeadingZeros(score);
     randomApple();
+    console.log("yummy apple")
+    }
 }
 
 const addLeadingZeros = (number) => {
