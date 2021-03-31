@@ -4,17 +4,23 @@ let interval = "";
 let snake = {
     X: 50,
     Y: 50,
-    width:5,
-    height:15,
-    body = {
-        
+    width: 6,
+    height: 5,
+}
+const tail = [];
+let tailLength = 8;
+class TailSection{
+    constructor(x, y){
+        this.x = x;
+        this.y = y;
     }
 }
+
 let apple = {
     X: 0,
     Y: 0,
-    width:10,
-    height:8,
+    width:8,
+    height:5,
 }
 let score = 0;
 
@@ -48,10 +54,26 @@ function moveSnake(arrow) {
 function drawGame() {
     ctx.fillStyle = '#f7d13a';
     ctx.fillRect(0,0,canvas.clientWidth,canvas.height); 
-    ctx.fillStyle = 'green';
-    ctx.fillRect(snake.X,snake.Y,snake.width,snake.height); 
     ctx.fillStyle = 'red';
     ctx.fillRect(apple.X,apple.Y,apple.width,apple.height);
+    drawSnake();
+}
+
+function drawSnake() {
+
+    ctx.fillStyle = 'blue';
+    for(let i = 0; i < tail.length; i++) {
+        let section = tail[i];
+        ctx.fillRect(section.X * 8, section.Y * 8, 5, 5)
+    }
+
+    tail.push(new TailSection(snake.X, snake.Y));
+    while (tail.length > tailLength){
+        tail.shift();
+    }
+
+    ctx.fillStyle = 'green';
+    ctx.fillRect(snake.X,snake.Y,snake.width,snake.height);
 }
 
 function snakeDirection(arrow) {
@@ -77,6 +99,7 @@ function collision() {
 }
 
 function eatApple() {
+    tailLength++;
     score ++;
     document.querySelector('.scoreDisplay').textContent = addLeadingZeros(score);
     randomApple();
@@ -88,9 +111,9 @@ function addLeadingZeros (number) {
 }
 
 function killSnake() {
-    if (snake.X < 0 | snake.X > 295) {
+    if (snake.X < 0 || snake.X + snake.width > 300) {
         deadSnake();
-    }else if (snake.Y < 0 | snake.Y > 137){
+    }else if (snake.Y < 0 || snake.Y + snake.height > 152){
         deadSnake();
     }
 }
