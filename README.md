@@ -6,8 +6,7 @@ view <a href="https://duanemcd.github.io/snake/"> crazy snake game!</a>!
 ## Summary
 A "snake" game. Grow you score and your tail by eating apples. There's a catch, you can hit yourself or the walls!.
 
-
-//![screenshot](screenshot.png)
+![screenshot](screenshot.png)
 
 ## Features
 
