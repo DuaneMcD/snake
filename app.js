@@ -7,14 +7,11 @@ let snake = {
     width: 6,
     height: 5,
 }
-const tail = [];
-let tailLength = 8;
-class TailSection{
-    constructor(x, y){
-        this.x = x;
-        this.y = y;
-    }
-}
+let body = [
+    [45, 50],
+    [40, 50],
+    [35, 50]
+]
 
 let apple = {
     X: 0,
@@ -58,18 +55,13 @@ function drawGame() {
     ctx.fillRect(apple.X,apple.Y,apple.width,apple.height);
     drawSnake();
 }
-
+ 
 function drawSnake() {
 
     ctx.fillStyle = 'blue';
-    for(let i = 0; i < tail.length; i++) {
-        let section = tail[i];
-        ctx.fillRect(section.X * 8, section.Y * 8, 5, 5)
-    }
-
-    tail.push(new TailSection(snake.X, snake.Y));
-    while (tail.length > tailLength){
-        tail.shift();
+    for(let i = 0; i < body.length; i++) {
+        let section = body[i];
+        ctx.fillRect(section[0], section[1], 10, 5)
     }
 
     ctx.fillStyle = 'green';
@@ -79,13 +71,25 @@ function drawSnake() {
 function snakeDirection(arrow) {
     switch(arrow) {
     case "left":
-        return snake.X -= 2;
+        return snake.X -= 5;
     case "right":
-        return snake.X += 2;
+        return snake.X += 5;
     case "up":
-        return snake.Y -= 2;    
+        return snake.Y -= 5;    
     case "down":
-        return snake.Y += 2;    
+        return snake.Y += 5;    
+    }
+}
+function bodyDirection(arrow) {
+    switch(arrow) {
+    case "left":
+        return snake.X -= 5;
+    case "right":
+        return snake.X += 5;
+    case "up":
+        return snake.Y -= 5;    
+    case "down":
+        return snake.Y += 5;    
     }
 }
 
@@ -99,7 +103,6 @@ function collision() {
 }
 
 function eatApple() {
-    tailLength++;
     score ++;
     document.querySelector('.scoreDisplay').textContent = addLeadingZeros(score);
     randomApple();
