@@ -1,36 +1,24 @@
-const tile = 20;
+const tile = 30;
 const canvas = document.querySelector('#field');
 const ctx = canvas.getContext('2d');
-ctx.imageSmoothingEnabled = false;
+ctx.imageSmoothingEnabled = true;
+
+const appleImg = document.getElementById('appleImg');
+const droolleft = document.querySelector('#droolleft')
+const droolright = document.querySelector('#droolright')
+const droolup = document.querySelector('#droolup')
+const drooldown = document.querySelector('#drooldown')
+const bodyIcon = document.querySelector('#bodyIcon')
 
 let highscore = 0;
-
-document.addEventListener('keydown', function (e) {
-    switch (e.key) {
-        case "ArrowLeft":
-            stopInterval();
-            return input("left");
-        case "ArrowUp":
-            stopInterval();
-            return input("up");
-        case "ArrowDown":
-            stopInterval();
-            return input("down");
-        case "ArrowRight":
-            stopInterval();
-            return input("right");
-        case " ":
-            stopInterval();
-            return drawPaused();
-    }
-})
 
 let interval = "";
 let head = {
     X: (canvas.width/3),
     Y: (canvas.height/3),
-    width: tile,
-    height: tile,
+    width: tile+2,
+    height: tile+2,
+    icon: droolright,
 }
 let body = 3;
 let history = [
@@ -41,8 +29,8 @@ let history = [
 let apple = {
     X: 0,
     Y: 0,
-    width: 30,
-    height: 30,
+    width: tile,
+    height: tile,
 }
 let score = 0;
 
@@ -71,23 +59,27 @@ function moveSnake(arrow) {
 function headDirection(arrow) {
     switch(arrow) {
     case "left":
+        head.icon = droolleft;
         return head.X -= tile;
     case "right":
+        head.icon = droolright;
         return head.X += tile;
     case "up":
+        head.icon = droolup;
         return head.Y -= tile;    
     case "down":
+        head.icon = drooldown;
         return head.Y += tile;    
     }
 }
 
 function randomApple() {
-    apple.X = Math.floor(Math.random() * canvas.width);
-    apple.Y = Math.floor(Math.random() * canvas.height);
+    apple.X = Math.floor(Math.random() * (canvas.width - tile));
+    apple.Y = Math.floor(Math.random() * (canvas.height - tile));
 }
 
 function drawGame() {
-    ctx.fillStyle = '#f7d13a';
+    ctx.fillStyle = '#ede66a';
     ctx.fillRect(0,0, canvas.width, canvas.height); 
     drawHead();
     drawBody();
@@ -95,20 +87,17 @@ function drawGame() {
 }
  
 function drawHead() {
-    ctx.fillStyle = '#a63ad8';
-    ctx.fillRect(head.X,head.Y,head.width,head.height);
+    ctx.drawImage(head.icon, head.X, head.Y, head.width, head.height);
 }
 
 function drawBody() {
-    ctx.fillStyle = '#630191';
     for(let i = 0; i < body; i++) {
-        ctx.fillRect((history[i].X +1),( history[i].Y +1), tile * .9 , tile * .9)
+        ctx.drawImage(bodyIcon, (history[i].X +5), (history[i].Y +5) , tile*.7, tile*.7);
     }
     while(history.length > body) {history.pop()}
 }
 
 function drawApple() {
-    const appleImg = document.getElementById('appleImg');
     ctx.drawImage(appleImg, apple.X, apple.Y, apple.width, apple.height);
 }
 
@@ -207,6 +196,7 @@ function reset() {
         Y: (canvas.height/3),
         width: tile,
         height: tile,
+        icon: document.querySelector('#droolright'),
     }
     body = 3;
     history = [
@@ -234,3 +224,31 @@ function loadHighscore () {
 document.addEventListener('DOMContentLoaded', randomApple);
 document.addEventListener('DOMContentLoaded', drawGame);
 document.addEventListener('DOMContentLoaded', loadHighscore);
+
+document.addEventListener('DOMContentLoaded', function (e) {
+    ctx.font = "italic 32px Unknown Font, sans-serif";
+    ctx.strokeStyle = "orange";
+    ctx.lineWidth = "2.5";
+    ctx.textAlign = "center";
+    ctx.strokeText("Press up/down/right to start!", canvas.width/2, canvas.height/2.55);
+})
+
+document.addEventListener('keydown', function (e) {
+    switch (e.key) {
+        case "ArrowLeft":
+            stopInterval();
+            return input("left");
+        case "ArrowUp":
+            stopInterval();
+            return input("up");
+        case "ArrowDown":
+            stopInterval();
+            return input("down");
+        case "ArrowRight":
+            stopInterval();
+            return input("right");
+        case " ":
+            stopInterval();
+            return drawPaused();
+    }
+})

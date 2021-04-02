@@ -1,24 +1,17 @@
 body {
   background-color: cornflowerblue;
 }
-
 .game {
+  width: 670px;
   background-color: #ffe47b;
   border: 3px solid darkgrey;
   border-radius: 3px;
-}
-#field {
-  position: relative;
-  z-index: 1;
-  margin-inline: 2.75%;
-  margin-block: 2.5%;
-  border: 3px solid rgba(0, 0, 0, 0.219);
 }
 .infoBar {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  width: 649px;
+  width: 670px;
   height: 100px;
   font-family: Ubuntu;
   background-color: rgba(255, 255, 255, 0.7);
@@ -64,4 +57,11 @@ body {
   font-size: 2em;
   padding-left: 0.25em;
   margin-top: 0.4em;
+}
+#field {
+  position: relative;
+  z-index: 1;
+  margin-inline: 2.75%;
+  margin-block: 2.5%;
+  border: 3px solid rgba(0, 0, 0, 0.219);
 }
