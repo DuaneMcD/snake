@@ -7,14 +7,30 @@ view <a href="https://duanemcd.github.io/snake/"> crazy snake game!</a>!
 
 ## Summary
 
-A "snake" game. Grow you score and your tail by eating apples. There's a catch, you can hit yourself or the walls!.
+A "snake" game. Grow you score and your tail by eating apples.
+Rules:
+
+<ul>
+  <li>You die if you hit a wall or yourself!
+  <li>Arrow keys to control head direction
+  <li>Space to pause the game
+  <li>
+</ul>
 
 ## Features
 
 <ul>
-  <li> beautiful color and design
-  <li> highscore tracking
+  <li> beautiful classic design
+  <li> highscore tracking (localStorage)
   <li> endless fun!
+</ul>
+
+## Technologies
+
+<ul>
+  <li> HTML5, CSS, JavaScript
+  <li> HTML Canvas
+  <li> LocalStorage
 </ul>
 
 ### Author
