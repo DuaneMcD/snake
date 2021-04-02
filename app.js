@@ -105,7 +105,7 @@ function drawDead() {
     stopInterval();
     resetGame();
 
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = 'orange';
     ctx.align = "center";
     ctx.fillRect(canvas.width/8, canvas.height/4,canvas.width* (6/8),canvas.height/6);
 
@@ -116,7 +116,7 @@ function drawDead() {
     ctx.strokeText("DEAD!!!", canvas.width/2, canvas.height/2.9);
     ctx.font = "italic 25px Unknown Font, sans-serif";
     ctx.strokeStyle = "black";
-    ctx.lineWidth = "1";
+    ctx.lineWidth = "1.125";
     ctx.textAlign = "center";
     ctx.strokeText("Press up/down/right to restart", canvas.width/2, canvas.height/2.55);
 }
@@ -140,7 +140,7 @@ function drawPaused() {
 function collisionWall() {
     if (head.X < 0 || head.X + head.width > canvas.width) {
         return drawDead();
-    }else if (head.Y < 0 || head.Y + head.height > canvas.height){
+    }else if (head.Y < 0 || (head.Y + head.height) > canvas.height){
         return drawDead();
     }
 }
