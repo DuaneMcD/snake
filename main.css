@@ -1,14 +1,18 @@
 body {
   background-color: cornflowerblue;
 }
+
 .game {
-  display: flex;
-  flex-direction: column;
-  width: 650px;
-  height: 800px;
   background-color: #ffe47b;
   border: 3px solid darkgrey;
   border-radius: 3px;
+}
+#field {
+  position: relative;
+  z-index: 1;
+  margin-inline: 2.75%;
+  margin-block: 2.5%;
+  border: 3px solid rgba(0, 0, 0, 0.219);
 }
 .infoBar {
   display: flex;
@@ -60,12 +64,4 @@ body {
   font-size: 2em;
   padding-left: 0.25em;
   margin-top: 0.4em;
-}
-.field {
-  flex: none;
-  margin-inline: 2.75%;
-  margin-block: 2.5%;
-  width: 94%;
-  height: 82%;
-  border: 3px solid rgba(0, 0, 0, 0.219);
 }

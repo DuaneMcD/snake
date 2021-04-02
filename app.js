@@ -1,26 +1,8 @@
-const tile = 10;
-const canvas = document.querySelector('.field');
+const tile = 20;
+const canvas = document.querySelector('#field');
 const ctx = canvas.getContext('2d');
-let interval = "";
-let head = {
-    X: tile * 5,
-    Y: tile * 5,
-    width: tile,
-    height: (tile)/2,
-}
-let body = 3;
-let history = [
-    {X:40, Y: 50},
-    {X:30, Y: 50},
-    {X:20, Y: 50},
-]
-let apple = {
-    X: 0,
-    Y: 0,
-    width: tile*1.3,
-    height: tile,
-}
-let score = 0;
+ctx.imageSmoothingEnabled = false;
+
 let highscore = 0;
 
 document.addEventListener('keydown', function (e) {
@@ -42,6 +24,27 @@ document.addEventListener('keydown', function (e) {
             return drawPaused();
     }
 })
+
+let interval = "";
+let head = {
+    X: (canvas.width/3),
+    Y: (canvas.height/3),
+    width: tile,
+    height: tile,
+}
+let body = 3;
+let history = [
+    {X: (head.X - (tile * 1)), Y: head.Y},
+    {X: (head.X - (tile * 2)), Y: head.Y},
+    {X: (head.X - (tile * 3)), Y: head.Y},
+]
+let apple = {
+    X: 0,
+    Y: 0,
+    width: 30,
+    height: 30,
+}
+let score = 0;
 
 function stopInterval() {
     if (interval !== undefined){clearInterval(interval)};
@@ -72,20 +75,20 @@ function headDirection(arrow) {
     case "right":
         return head.X += tile;
     case "up":
-        return head.Y -= tile/2;    
+        return head.Y -= tile;    
     case "down":
-        return head.Y += tile/2;    
+        return head.Y += tile;    
     }
 }
 
 function randomApple() {
-    apple.X = Math.floor(Math.random() * 287);
-    apple.Y = Math.floor(Math.random() * 140);
+    apple.X = Math.floor(Math.random() * canvas.width);
+    apple.Y = Math.floor(Math.random() * canvas.height);
 }
 
 function drawGame() {
     ctx.fillStyle = '#f7d13a';
-    ctx.fillRect(0,0,tile * 30, (tile/2) * 30); 
+    ctx.fillRect(0,0, canvas.width, canvas.height); 
     drawHead();
     drawBody();
     drawApple();
@@ -99,7 +102,7 @@ function drawHead() {
 function drawBody() {
     ctx.fillStyle = '#630191';
     for(let i = 0; i < body; i++) {
-        ctx.fillRect(history[i].X, history[i].Y, tile * .925 , (tile/2) * .925)
+        ctx.fillRect((history[i].X +1),( history[i].Y +1), tile * .9 , tile * .9)
     }
     while(history.length > body) {history.pop()}
 }
@@ -114,29 +117,41 @@ function drawDead() {
     resetGame();
 
     ctx.fillStyle = 'red';
-    ctx.fillRect(70,30,160,30);
+    ctx.align = "center";
+    ctx.fillRect(canvas.width/8, canvas.height/4,canvas.width* (6/8),canvas.height/6);
 
-    ctx.font = "italic 21px Unknown Font, sans-serif";
+    ctx.font = "italic 55px Unknown Font, sans-serif";
     ctx.strokeStyle = "black";
-    ctx.lineWidth = "1.75";
+    ctx.lineWidth = "3.5";
     ctx.textAlign = "center";
-    ctx.strokeText("DEAD!!!", 150, 52);
+    ctx.strokeText("DEAD!!!", canvas.width/2, canvas.height/2.9);
+    ctx.font = "italic 25px Unknown Font, sans-serif";
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = "1";
+    ctx.textAlign = "center";
+    ctx.strokeText("Press up/down/right to restart", canvas.width/2, canvas.height/2.55);
 }
 
 function drawPaused() {
     stopInterval();
 
-    ctx.font = "italic 21px Unknown Font, sans-serif";
-    ctx.strokeStyle = "black";
-    ctx.lineWidth = "1.5";
+    ctx.font = "italic 62px Unknown Font, sans-serif";
+    ctx.strokeStyle = " blue";
+    ctx.lineWidth = "2";
     ctx.textAlign = "center";
-    ctx.strokeText("PAUSED", 150, 52);
+    ctx.strokeText("PAUSED", canvas.width/2, canvas.height/3);
+    ctx.font = "italic 25px Unknown Font, sans-serif";
+    ctx.strokeStyle = "blue";
+    ctx.lineWidth = "1";
+    ctx.textAlign = "center";
+    ctx.strokeText("Press Arrowkey to resume", canvas.width/2, canvas.height/2.55);
+    ctx.strokeText("don't kill your snake!", canvas.width/2, canvas.height/2.25);
 }
 
 function collisionWall() {
-    if (head.X < 0 || head.X + head.width > 300) {
+    if (head.X < 0 || head.X + head.width > canvas.width) {
         return drawDead();
-    }else if (head.Y < 0 || head.Y + head.height > 152){
+    }else if (head.Y < 0 || head.Y + head.height > canvas.height){
         return drawDead();
     }
 }
@@ -180,18 +195,26 @@ function addLeadingZeros (number) {
 
 function resetGame() {
     updateHighScore();
-    score = 0;
+    reset();
+    randomApple();
     updateScore();
-    clearInterval(interval);
-    head.X = 50;
-    head.Y = 50;
+}
+
+function reset() {
+    interval = "";
+    head = {
+        X: (canvas.width/3),
+        Y: (canvas.height/3),
+        width: tile,
+        height: tile,
+    }
     body = 3;
-    i = 0;
     history = [
-        {X:40, Y: 50},
-        {X:30, Y: 50},
-        {X:20, Y: 50},
+        {X: (head.X - (tile * 1)), Y: head.Y},
+        {X: (head.X - (tile * 2)), Y: head.Y},
+        {X: (head.X - (tile * 3)), Y: head.Y},
     ]
+    score = 0;
 }
 
 function updateHighScore() {
