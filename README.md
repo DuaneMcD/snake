@@ -1,10 +1,12 @@
 # snake
+
 Old school JS snake game! Don't eat your tail!!!
- 
-<img align="right" src="design/snake_game.png" height="400">
+
+<img align="right" src="screenshot.png" height="400">
 view <a href="https://duanemcd.github.io/snake/"> crazy snake game!</a>!
 
 ## Summary
+
 A "snake" game. Grow you score and your tail by eating apples. There's a catch, you can hit yourself or the walls!.
 
 ## Features
@@ -20,4 +22,3 @@ A "snake" game. Grow you score and your tail by eating apples. There's a catch, 
 Duane McDonald | Software Developer <br />
 <a href="https://www.linkedin.com/in/duane-mcdonald-48a90136">linkedIn</a> <br />
 <a href="https://www.DuaneMcDonald.com">Personal Website</a> <br />
-
