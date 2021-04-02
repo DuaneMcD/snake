@@ -80,10 +80,10 @@ function randomApple() {
 
 function drawGame() {
     ctx.fillStyle = '#ede66a';
-    ctx.fillRect(0,0, canvas.width, canvas.height); 
+    ctx.fillRect(0,0, canvas.width, canvas.height);
+    drawApple(); 
     drawHead();
     drawBody();
-    drawApple();
 }
  
 function drawHead() {
@@ -92,7 +92,7 @@ function drawHead() {
 
 function drawBody() {
     for(let i = 0; i < body; i++) {
-        ctx.drawImage(bodyIcon, (history[i].X +5), (history[i].Y +5) , tile*.7, tile*.7);
+        ctx.drawImage(bodyIcon, (history[i].X +4), (history[i].Y +4) , tile*.78, tile*.78);
     }
     while(history.length > body) {history.pop()}
 }
@@ -171,7 +171,6 @@ function eatApple() {
     score ++;
     updateScore();
     randomApple();
-    console.log("yummy apple")
 }
 
 function updateScore() {
@@ -226,11 +225,13 @@ document.addEventListener('DOMContentLoaded', drawGame);
 document.addEventListener('DOMContentLoaded', loadHighscore);
 
 document.addEventListener('DOMContentLoaded', function (e) {
-    ctx.font = "italic 32px Unknown Font, sans-serif";
-    ctx.strokeStyle = "orange";
-    ctx.lineWidth = "2.5";
+    
+    ctx.font = "italic 36px Unknown Font, sans-serif";
+    ctx.strokeStyle = "blue";
+    ctx.lineWidth = "1.75";
     ctx.textAlign = "center";
     ctx.strokeText("Press up/down/right to start!", canvas.width/2, canvas.height/2.55);
+    ctx.fill();
 })
 
 document.addEventListener('keydown', function (e) {
